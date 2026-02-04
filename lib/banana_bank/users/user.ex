@@ -3,6 +3,8 @@ defmodule BananaBank.Users.User do
 
   import Ecto.Changeset
 
+  @required_params [:name, :password_hash, :email, :zip_code]
+
   schema "users" do
     field :name, :string
     field :password_hash, :string
@@ -14,7 +16,10 @@ defmodule BananaBank.Users.User do
 
   def changeset(user \\ %__MODULE__{}, params) do
     user
-    |> cast(params, [:name, :password_hash, :email, :zip_code])
-    |> validate_required([:name, :password_hash, :email, :zip_code])
+    |> cast(params, @required_params)
+    |> validate_required(@required_params)
+    |> validate_length(:name, min: 3)
+    |> validate_length(:zip_code, is: 8)
+    |> validate_format(:email, ~r/@/)
   end
 end
