@@ -5,7 +5,7 @@ defmodule BananaBank.Users.User do
 
   alias Ecto.Changeset
 
-  @required_params [:name, :password_hash, :email, :zip_code]
+  @required_params [:name, :password, :email, :zip_code]
 
   schema "users" do
     field :name, :string
