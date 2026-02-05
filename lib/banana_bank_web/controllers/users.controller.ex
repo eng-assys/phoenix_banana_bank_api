@@ -14,6 +14,7 @@ defmodule BananaBankWeb.UsersController do
     |> put_status(:created)
     |> render("create.json", user: user)
   end
+
   # defp handle_response({:error, _changeset} = error, conn) do
   #   conn
   #   |> put_status(:bad_request)
