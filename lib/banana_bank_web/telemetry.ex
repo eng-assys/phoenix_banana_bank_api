@@ -71,8 +71,7 @@ defmodule BananaBankWeb.Telemetry do
       ),
       summary("banana_bank.repo.query.idle_time",
         unit: {:native, :millisecond},
-        description:
-          "The time the connection spent waiting before being checked out for the query"
+        description: "The time the connection spent waiting before being checked out for the query"
       ),
 
       # VM Metrics
