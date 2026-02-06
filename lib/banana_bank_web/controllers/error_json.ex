@@ -15,7 +15,14 @@ defmodule BananaBankWeb.ErrorJSON do
   # By default, Phoenix returns the status message from
   # the template name. For example, "404.json" becomes
   # "Not Found".
-   def render("error.json", %{changeset: changeset}) do
+  def render("error.json", %{status: :not_found}) do
+    %{
+      status: :not_found,
+      message: "User not found"
+    }
+  end
+
+  def render("error.json", %{changeset: changeset}) do
     %{
       errors:
         Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
