@@ -38,6 +38,7 @@ defmodule BananaBank.Users.User do
     |> validate_required(fields)
     |> validate_length(:name, min: 3)
     |> validate_length(:zip_code, is: 8)
+    |> validate_length(:password, min: 6)
     |> validate_format(:email, ~r/@/)
   end
 
