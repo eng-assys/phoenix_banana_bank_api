@@ -2,6 +2,7 @@ defmodule BananaBankWeb.UsersControllerTest do
   use BananaBankWeb.ConnCase
 
   alias BananaBank.Users
+  alias BananaBank.Users.User
 
   describe "create/2" do
     test "successfully creates an user", %{conn: conn} do
@@ -61,17 +62,17 @@ defmodule BananaBankWeb.UsersControllerTest do
         zip_code: "12345678"
       }
 
-      {:ok, user} = Users.create(params)
+      {:ok, %User{id: id}} = Users.create(params)
 
       response =
         conn
-        |> delete(~p"/api/users/#{user.id}")
+        |> delete(~p"/api/users/#{id}")
         |> json_response(:ok)
 
       assert %{
                "data" => %{
                  "email" => "jhon@email.com",
-                 "id" => _id,
+                 "id" => ^id,
                  "name" => "John Doe",
                  "zip_code" => "12345678"
                },
