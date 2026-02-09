@@ -15,12 +15,12 @@ defmodule BananaBankWeb.UsersController do
   end
 
   def delete(conn, %{"id" => id}) do
-   with {:ok, %User{} = user} <- Users.delete(id) do
-     conn
-     |> put_status(:ok)
-     |> render(:delete, user: user)
-   end
- end
+    with {:ok, %User{} = user} <- Users.delete(id) do
+      conn
+      |> put_status(:ok)
+      |> render(:delete, user: user)
+    end
+  end
 
   def show(conn, %{"id" => id}) do
     with {:ok, %User{} = user} <- Users.get(id) do
@@ -37,5 +37,4 @@ defmodule BananaBankWeb.UsersController do
       |> render(:update, user: user)
     end
   end
-
 end
