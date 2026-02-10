@@ -6,31 +6,34 @@ defmodule BananaBankWeb.UsersControllerTest do
   alias BananaBank.Users
   alias BananaBank.Users.User
 
-  setup :verify_on_exit!
+  setup do
+    params = %{
+      "name" => "John Doe",
+      "email" => "jhon@email.com",
+      "password" => "123456",
+      "zip_code" => "29560000"
+    }
+
+    body = %{
+      "cep" => "29560-000",
+      "logradouro" => "",
+      "complemento" => "",
+      "bairro" => "",
+      "localidade" => "Iúna",
+      "uf" => "ES",
+      "ibge" => "3202400",
+      "gia" => "",
+      "ddd" => "28",
+      "siafi" => "5865"
+    }
+
+    {:ok, %{user_params: params, body: body}}
+  end
 
   describe "create/2" do
-    test "successfully creates an user", %{conn: conn} do
-      params = %{
-        name: "John Doe",
-        email: "jhon@email.com",
-        password: "123456",
-        zip_code: "29560000"
-      }
-
+    test "successfully creates an user", %{conn: conn, user_params: params, body: body} do
       expect(BananaBank.ViaCep.ClientMock, :call, fn "29560000" ->
-        {:ok,
-         %{
-           "cep" => "29560-000",
-           "logradouro" => "",
-           "complemento" => "",
-           "bairro" => "",
-           "localidade" => "Iúna",
-           "uf" => "ES",
-           "ibge" => "3202400",
-           "gia" => "",
-           "ddd" => "28",
-           "siafi" => "5865"
-         }}
+        {:ok, body}
       end)
 
       response =
@@ -78,28 +81,9 @@ defmodule BananaBankWeb.UsersControllerTest do
   end
 
   describe "delete/2" do
-    test "successfully deletes an user", %{conn: conn} do
-      params = %{
-        "name" => "John Doe",
-        "email" => "jhon@email.com",
-        "password" => "123456",
-        "zip_code" => "29560000"
-      }
-
+    test "successfully deletes an user", %{conn: conn, user_params: params, body: body} do
       expect(BananaBank.ViaCep.ClientMock, :call, fn "29560000" ->
-        {:ok,
-         %{
-           "cep" => "29560-000",
-           "logradouro" => "",
-           "complemento" => "",
-           "bairro" => "",
-           "localidade" => "Iúna",
-           "uf" => "ES",
-           "ibge" => "3202400",
-           "gia" => "",
-           "ddd" => "28",
-           "siafi" => "5865"
-         }}
+        {:ok, body}
       end)
 
       {:ok, %User{id: id}} = Users.create(params)
