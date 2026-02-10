@@ -40,7 +40,7 @@ defmodule BananaBank.ViaCep.ClientTest do
            "uf" => "ES"
          }}
 
-      Bypass.expect(bypass, fn conn ->
+      Bypass.expect(bypass, "GET", "/29560000/json", fn conn ->
         conn
         |> Plug.Conn.put_resp_content_type("application/json")
         |> Plug.Conn.resp(200, body)
