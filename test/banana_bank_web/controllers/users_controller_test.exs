@@ -1,8 +1,12 @@
 defmodule BananaBankWeb.UsersControllerTest do
   use BananaBankWeb.ConnCase
 
+  import Mox
+
   alias BananaBank.Users
   alias BananaBank.Users.User
+
+  setup :verify_on_exit!
 
   describe "create/2" do
     test "successfully creates an user", %{conn: conn} do
@@ -10,8 +14,24 @@ defmodule BananaBankWeb.UsersControllerTest do
         name: "John Doe",
         email: "jhon@email.com",
         password: "123456",
-        zip_code: "12345678"
+        zip_code: "29560000"
       }
+
+      expect(BananaBank.ViaCep.ClientMock, :call, fn "29560000" ->
+        {:ok,
+         %{
+           "cep" => "29560-000",
+           "logradouro" => "",
+           "complemento" => "",
+           "bairro" => "",
+           "localidade" => "Iúna",
+           "uf" => "ES",
+           "ibge" => "3202400",
+           "gia" => "",
+           "ddd" => "28",
+           "siafi" => "5865"
+         }}
+      end)
 
       response =
         conn
@@ -23,7 +43,7 @@ defmodule BananaBankWeb.UsersControllerTest do
                  "email" => "jhon@email.com",
                  "id" => _id,
                  "name" => "John Doe",
-                 "zip_code" => "12345678"
+                 "zip_code" => "29560000"
                },
                "message" => "user created successfully"
              } = response
@@ -36,6 +56,10 @@ defmodule BananaBankWeb.UsersControllerTest do
         password: "q",
         zip_code: "12"
       }
+
+      expect(BananaBank.ViaCep.ClientMock, :call, fn "12" ->
+        {:ok, %{"status" => :not_found}}
+      end)
 
       response =
         conn
@@ -56,11 +80,27 @@ defmodule BananaBankWeb.UsersControllerTest do
   describe "delete/2" do
     test "successfully deletes an user", %{conn: conn} do
       params = %{
-        name: "John Doe",
-        email: "jhon@email.com",
-        password: "123456",
-        zip_code: "12345678"
+        "name" => "John Doe",
+        "email" => "jhon@email.com",
+        "password" => "123456",
+        "zip_code" => "29560000"
       }
+
+      expect(BananaBank.ViaCep.ClientMock, :call, fn "29560000" ->
+        {:ok,
+         %{
+           "cep" => "29560-000",
+           "logradouro" => "",
+           "complemento" => "",
+           "bairro" => "",
+           "localidade" => "Iúna",
+           "uf" => "ES",
+           "ibge" => "3202400",
+           "gia" => "",
+           "ddd" => "28",
+           "siafi" => "5865"
+         }}
+      end)
 
       {:ok, %User{id: id}} = Users.create(params)
 
@@ -74,7 +114,7 @@ defmodule BananaBankWeb.UsersControllerTest do
                  "email" => "jhon@email.com",
                  "id" => ^id,
                  "name" => "John Doe",
-                 "zip_code" => "12345678"
+                 "zip_code" => "29560000"
                },
                "message" => "user deleted successfully"
              } = response

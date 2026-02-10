@@ -18,7 +18,7 @@ defmodule BananaBankWeb.ErrorJSON do
   def render("error.json", %{status: :not_found}) do
     %{
       status: :not_found,
-      message: "User not found"
+      message: "Resource not found"
     }
   end
 
@@ -32,6 +32,12 @@ defmodule BananaBankWeb.ErrorJSON do
             |> to_string()
           end)
         end)
+    }
+  end
+
+  def render("error.json", %{status: status}) do
+    %{
+      status: status
     }
   end
 
