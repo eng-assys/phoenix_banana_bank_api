@@ -16,7 +16,7 @@ defmodule BananaBank.Application do
       # {BananaBank.Worker, arg},
       # Start to serve requests, typically the last entry
       BananaBankWeb.Endpoint,
-      BananaBank.Scheduler
+      # BananaBank.Scheduler
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
