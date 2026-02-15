@@ -15,7 +15,8 @@ defmodule BananaBank.Application do
       # Start a worker by calling: BananaBank.Worker.start_link(arg)
       # {BananaBank.Worker, arg},
       # Start to serve requests, typically the last entry
-      BananaBankWeb.Endpoint
+      BananaBankWeb.Endpoint,
+      BananaBank.Scheduler
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
