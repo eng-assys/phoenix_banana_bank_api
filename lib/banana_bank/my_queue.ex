@@ -26,6 +26,10 @@ defmodule BananaBank.MyQueue do
     GenServer.call(__MODULE__, :dequeue)
   end
 
+  def queue do
+    GenServer.call(__MODULE__, :queue)
+  end
+
   # --- Server Callbacks ---
 
   @impl true
@@ -49,5 +53,9 @@ defmodule BananaBank.MyQueue do
   # Case 2: An empty queue
   def handle_call(:dequeue, _from, []) do
     {:reply, nil, []}
+  end
+
+  def handle_call(:queue, _from, state) do
+    {:reply, state, state}
   end
 end
