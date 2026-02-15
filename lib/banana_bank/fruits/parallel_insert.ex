@@ -11,7 +11,7 @@ defmodule BananaBank.Fruits.ParallelInsert do
 
     number_of_fruits
     |> Stream.map(fn x -> %{name: "fruit #{x}"} end)
-    |> Stream.chunk_every(8191)
+    |> Stream.chunk_every(8191) # Dividido o max de insercoes (65535) que o postgres aceita por 8 processos paralelos
     # |> Enum.each(fn chunk -> Repo.insert_all(Fruit, chunk) end)
     |> Task.async_stream(fn chunk -> Repo.insert_all(Fruit, chunk) end, max_concurrency: 8)
     |> Stream.run()
