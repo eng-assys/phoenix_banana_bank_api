@@ -33,5 +33,4 @@ defmodule BananaBank.Scheduler do
   def start_link(initial_state \\ []) when is_list(initial_state) do
     GenServer.start_link(__MODULE__, initial_state, name: __MODULE__)
   end
-
 end
