@@ -1,4 +1,4 @@
-defmodule BananaBank.Accouts.Create do
+defmodule BananaBank.Accounts.Create do
   alias BananaBank.Accounts.Account
   alias BananaBank.Repo
 
