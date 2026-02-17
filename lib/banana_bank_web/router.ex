@@ -8,8 +8,8 @@ defmodule BananaBankWeb.Router do
   scope "/api", BananaBankWeb do
     pipe_through :api
 
+    post "/accounts", AccountsController, :create
     get "/", WelcomeController, :index
-    post "accounts", AccountsController, :create
     resources "/users", UsersController, only: [:create, :update, :delete, :show]
   end
 
