@@ -44,16 +44,16 @@ defmodule BananaBank.Accounts.Transaction do
   end
 
   defp handle_invalid_value(value) do
-  with {:ok, validated_value} <- Decimal.cast(value) do
-    if Decimal.gt?(validated_value, 0) do
-      {:ok, validated_value}
+    with {:ok, validated_value} <- Decimal.cast(value) do
+      if Decimal.gt?(validated_value, 0) do
+        {:ok, validated_value}
+      else
+        {:error, "value must be greater than zero"}
+      end
     else
-      {:error, "value must be greater than zero"}
+      :error -> {:error, "invalid value for transaction"}
     end
-  else
-    :error -> {:error, "invalid value for transaction"}
   end
-end
 
   defp handle_transaction({:ok, _result} = result), do: result
   defp handle_transaction({:error, _op, reason, _}), do: {:error, reason}
