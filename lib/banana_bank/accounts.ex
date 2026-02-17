@@ -4,5 +4,5 @@ defmodule BananaBank.Accounts do
 
   defdelegate create(params), to: Create, as: :call
   defdelegate get(id), to: Get, as: :call
-  defdelegate transaction(from_account_id, to_account_id, value), to: Transaction, as: :call
+  defdelegate transaction(params), to: Transaction, as: :call
 end
