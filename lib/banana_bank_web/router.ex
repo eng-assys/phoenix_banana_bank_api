@@ -9,7 +9,9 @@ defmodule BananaBankWeb.Router do
     pipe_through :api
 
     get "/", WelcomeController, :index
+    post "accounts", AccountsController, :create
     resources "/users", UsersController, only: [:create, :update, :delete, :show]
+
   end
 
   # Enable LiveDashboard in development
