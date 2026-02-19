@@ -8,6 +8,10 @@ defmodule BananaBankWeb.UsersJSON do
     }
   end
 
+  def login(%{token: token}) do
+    %{message: "user authenticated successfully", token: token}
+  end
+
   def delete(%{user: user}) do
     %{message: "user deleted successfully", data: data(user)}
   end
