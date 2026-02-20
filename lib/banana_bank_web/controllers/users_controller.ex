@@ -27,6 +27,7 @@ defmodule BananaBankWeb.UsersController do
   def login(conn, params) do
     with {:ok, %User{} = user} <- Users.login(params) do
       token = Token.sign(user)
+
       conn
       |> put_status(:ok)
       |> render(:login, token: token)
